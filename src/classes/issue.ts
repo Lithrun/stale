@@ -19,6 +19,8 @@ export class Issue implements IIssue {
   readonly isPullRequest: boolean;
   readonly staleLabel: string;
   isStale: boolean;
+  readonly assignee: Object | null | undefined;
+  readonly assignees: Object[] | null | undefined;
 
   constructor(
     options: Readonly<IssueProcessorOptions>,
@@ -34,6 +36,8 @@ export class Issue implements IIssue {
     this.state = issue.state;
     this.locked = issue.locked;
     this.milestone = issue.milestone;
+    this.assignee = issue.assignee;
+    this.assignees = issue.assignees;
 
     this.isPullRequest = isPullRequest(this);
     this.staleLabel = this._getStaleLabel();

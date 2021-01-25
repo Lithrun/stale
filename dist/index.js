@@ -106,6 +106,10 @@ class IssueProcessor {
                 else {
                     issueLogger.info(`Days before issue stale: ${daysBeforeStale}`);
                 }
+                if (issue.assignee == null || issue.assignees == null) {
+                    issueLogger.info(`Issue is unassigned, so we can ignore this`);
+                    continue;
+                }
                 const shouldMarkAsStale = should_mark_when_stale_1.shouldMarkWhenStale(daysBeforeStale);
                 if (!staleMessage && shouldMarkAsStale) {
                     issueLogger.info(`Skipping ${issueType} due to empty stale message`);
@@ -276,6 +280,7 @@ class IssueProcessor {
             try {
                 const issueResult = yield this.client.issues.listForRepo({
                     owner: github_1.context.repo.owner,
+                    filter: '',
                     repo: github_1.context.repo.repo,
                     state: 'open',
                     labels: this.options.onlyLabels,
@@ -526,6 +531,8 @@ class Issue {
         this.state = issue.state;
         this.locked = issue.locked;
         this.milestone = issue.milestone;
+        this.assignee = issue.assignee;
+        this.assignees = issue.assignees;
         this.isPullRequest = is_pull_request_1.isPullRequest(this);
         this.staleLabel = this._getStaleLabel();
         this.isStale = is_labeled_1.isLabeled(this, this.staleLabel);

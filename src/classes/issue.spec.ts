@@ -51,6 +51,8 @@ describe('Issue', (): void => {
         }
       ],
       pull_request: {},
+      assignee: {},
+      assignees: [],
       state: 'dummy-state',
       locked: false,
       milestone: {

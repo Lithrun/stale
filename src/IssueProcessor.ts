@@ -183,6 +183,11 @@ export class IssueProcessor {
         issueLogger.info(`Days before issue stale: ${daysBeforeStale}`);
       }
 
+      if (issue.assignee == null || issue.assignees == null) {
+        issueLogger.info(`Issue is unassigned, so we can ignore this`);
+        continue;
+      }
+
       const shouldMarkAsStale: boolean = shouldMarkWhenStale(daysBeforeStale);
 
       if (!staleMessage && shouldMarkAsStale) {
@@ -457,6 +462,7 @@ export class IssueProcessor {
       const issueResult: OctoKitIssueList = await this.client.issues.listForRepo(
         {
           owner: context.repo.owner,
+          filter: '',
           repo: context.repo.repo,
           state: 'open',
           labels: this.options.onlyLabels,

@@ -47,6 +47,8 @@ describe('Milestones', (): void => {
       milestone: undefined,
       number: 0,
       pull_request: undefined,
+      assignee: undefined,
+      assignees: undefined,
       state: '',
       title: '',
       updated_at: '',
