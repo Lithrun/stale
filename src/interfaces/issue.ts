@@ -10,7 +10,7 @@ export interface IIssue {
   labels: Label[];
   pull_request: Object | null | undefined;
   assignee: Object | null | undefined;
-  assignees: Array<Object> | null | undefined;
+  assignees: Object[] | null | undefined;
   state: string;
   locked: boolean;
   milestone: IMilestone | undefined;
