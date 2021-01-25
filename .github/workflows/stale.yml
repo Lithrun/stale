@@ -1,9 +1,10 @@
 name: 'Stale issue handler'
 on:
   push:
+    branches: master
   workflow_dispatch:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 0 * * *"
 
 jobs:
   stale:
@@ -11,7 +12,9 @@ jobs:
     steps:
       - uses: Lithrun/stale@main
         with:
-          stale-issue-message: 'This issue is stale because it has been open 30 days with no activity. Remove stale label or comment or this will be closed in 5 days'
-          days-before-stale: 30
-          days-before-close: 5
-          exempt-issue-labels: 'blocked,must,should,keep'
+          stale-issue-message: 'This issue is stale because it has been open 15 days with no activity. Remove stale label or comment'
+          stale-pr-message: 'This pr is stale because it has been open 15 days with no activity. Remove stale label or comment'
+          days-before-stale: 15
+          days-before-close: -1
+          exempt-issue-labels: 'Proposal'
+          exempt-milestones: 'Future'
